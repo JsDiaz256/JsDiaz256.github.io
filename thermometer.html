@@ -1,0 +1,218 @@
+<html>
+
+<head>
+  <title>Thermometer Lab</title>
+</head>
+
+<body>
+  <h1>Thermometer Lab</h1>
+  <div>
+    <svg version="1.1" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" height="50%" width="75%">
+      <style>
+        #glass {
+          fill: #ffffff;
+          stroke: #000000;
+          stroke-width: 3;
+        }
+
+        #container {
+          fill: #ffffff;
+          stroke: #000000;
+          stroke-width: 5;
+        }
+
+        #thermom {
+          fill: #ff0000;
+          stroke: #ff0000;
+          stroke-width: 5;
+        }
+
+        #why {
+          fill: #ffffff;
+          stroke: #00000000;
+        }
+
+        #why2 {
+          fill: #ff0000;
+          stroke: #00000000;
+        }
+
+        .liney {
+          fill:#000000;
+          stroke: #000000;
+        }
+
+        .labelsFa{
+          opacity: 1;
+        }
+
+        .labelsCe{
+          opacity: 0;
+        }
+
+        
+      </style>
+
+      <rect id="container" x="10" y="10" width="150" height="210" rx="15" />
+
+      <g id="glass">
+        <rect x="45" y="20" width="30" height="160" rx="15" />
+        <ellipse cx="60" cy="180" rx="30" ry="30" />
+        <rect x="46.5" y="22" width="27" height="165" rx="15" stroke="none" />
+      </g>
+
+      <g id="thermom">
+        <ellipse id = "circ" cx="60" cy="180" rx="20" ry="20" />
+        <rect id = "thermt" x="50" y="25" width="20" height="150" rx="10" stroke="none" />
+      </g>
+
+      <g id = "why">
+        <path d=" M 60 200 A 20 20 0 1 1 71 163" />
+      </g>
+
+      <g id = "why2">
+        <ellipse id = "whybig" cx="60" cy="180" rx="18" ry="18" />
+        <ellipse id = "whysmol" cx="55" cy="162" rx="4" ry="3" />
+      </g>
+
+      <g class = "liney">
+        <rect x="80" y="27" width="15" height="1.5" />
+        <rect x="80" y="39" width="10" height="1.5" />
+        <rect x="80" y="51" width="15" height="1.5" />
+        <rect x="80" y="63" width="10" height="1.5" />
+        <rect x="80" y="75" width="15" height="1.5" />
+        <rect x="80" y="87" width="10" height="1.5" />
+        <rect x="80" y="99" width="15" height="1.5" />
+        <rect x="80" y="111" width="10" height="1.5" />
+        <rect x="80" y="123" width="15" height="1.5" />
+        <rect x="80" y="135" width="10" height="1.5" />
+        <rect x="80" y="147" width="15" height="1.5" />
+      </g>
+
+      <g class = "labelsFa">
+        <text x="100" y="32">212</text>
+        <text x="100" y="56">169.6</text>
+        <text x="100" y="80">127.2</text>
+        <text x="100" y="104">84.8</text>
+        <text x="100" y="128">42.4</text>
+        <text x="100" y="152">0</text>
+      </g>
+
+      <g class = "labelsCe">
+        <text x="100" y="32">100</text>
+        <text x="100" y="56">76.4</text>
+        <text x="100" y="80">52.8</text>
+        <text x="100" y="104">29.2</text>
+        <text x="100" y="128">5.6</text>
+        <text x="100" y="152">-18</text>
+      </g>
+
+      <p> Temperature:  </p>
+      <div class="sliding">
+        <input id = "sliding" type="range" min="0" max="212" value="212" oninput="slid.innerText = this.value, please(this.value)" >
+        <p id="slid">212</p>
+      </div> 
+
+      <fieldset>
+        <legend>Temperature Scale:</legend>
+      
+        <div>
+          <input type="radio" id="Fa" name="Temps" value="Fa" checked />
+          <label for="Fa">Fahrenheit</label>
+        </div>
+      
+        <div>
+          <input type="radio" id="Ce" name="Temps" value="Ce" />
+          <label for="Ce">Celcius</label>
+        </div>
+      </fieldset>
+      
+
+    </svg>
+  </div>
+  <script>
+    var tempy = "Fa"
+    function please(tes){
+      tes = parseInt(tes)
+      if(tempy == "Fa"){
+        var temp = (tes/212) * 125
+      }
+      else{
+        var temp = ((tes+18)/118) * 125
+      }
+      var top = 150-temp
+      var hei = 180-top
+      const circ = document.getElementById("circ")
+      const thermt = document.getElementById("thermt")
+      const whybig = document.getElementById("whybig")
+      const whysmol = document.getElementById("whysmol")
+      thermt.setAttribute("y",top)
+      thermt.setAttribute("height", hei)
+      if(temp>80){
+        thermt.style.fill = "#ff0000"
+        circ.style.fill = "#ff0000"
+        circ.style.stroke = "#ff0000"
+        whybig.style.fill = "#ff0000"
+        whysmol.style.fill = "#ff0000"
+      }
+      else if(temp>19.4){
+        thermt.style.fill = "#ffae00"
+        circ.style.fill = "#ffae00"
+        circ.style.stroke = "#ffae00"
+        whybig.style.fill = "#ffae00"
+        whysmol.style.fill = "#ffae00"
+      }
+      else{
+        thermt.style.fill = "#00c3ff"
+        circ.style.fill = "#00c3ff"
+        circ.style.stroke = "#00c3ff"
+        whybig.style.fill = "#00c3ff"
+        whysmol.style.fill = "#00c3ff"
+      }
+    }
+    
+    const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+    // generate the radio groups        
+    
+    // add an event listener for the change event
+    const radioButtons = document.querySelectorAll('input[name="Temps"]');
+    for(const radioButton of radioButtons){
+      radioButton.addEventListener('change', showSelected);
+    }        
+    const slidey = document.getElementById("sliding")
+    const slid = document.getElementById("slid")
+    const labelsFa = document.getElementsByClassName("labelsFa")
+    const labelsCe = document.getElementsByClassName("labelsCe")
+
+    function showSelected() {
+      if (this.checked) {
+        if (this.value == "Fa"){
+          slidey.setAttribute("min", "0")
+          slidey.setAttribute("max", "212")
+          for(var i = 0, length = labelsFa.length; i < length; i++){
+            labelsFa[i].style.opacity = 1
+          }
+          for(var i = 0, length = labelsCe.length; i < length; i++){
+            labelsCe[i].style.opacity = 0
+          }
+        }
+        else{
+          slidey.setAttribute("min", "-18")
+          slidey.setAttribute("max", "100")
+          for(var i = 0, length = labelsFa.length; i < length; i++){
+            labelsFa[i].style.opacity = 0
+          }
+          for(var i = 0, length = labelsCe.length; i < length; i++){
+            labelsCe[i].style.opacity = 1
+          }
+        }
+      tempy = this.value
+      }
+    }
+    
+  
+  </script>
+</body>
+
+</html>
